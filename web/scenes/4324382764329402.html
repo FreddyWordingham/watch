@@ -32,37 +32,39 @@
 
         <script>
             (function () {
+                const power = 8;
+
                 const canvas = document.getElementById('main_canvas');
                 const ctx = canvas.getContext('2d');
 
-                // Start listening to resize events and draw canvas.
-                initialize();
-                colour();
-                clear();
-                setInterval(clear, 10);
+                var pixels = [];
+                window.addEventListener('load', function () {
+                    initialize();
+
+                    (function () {
+                        clear();
+                        setTimeout(arguments.callee, 1);
+                    })();
+                })
 
                 function colour() {
-                    var width = canvas.width;
-                    var height = canvas.height;
-
                     ctx.fillStyle = 'black';
-                    ctx.fillRect(0, 0, width, height);
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
                 }
 
                 function clear() {
-                    var width = canvas.width;
-                    var height = canvas.height;
-
-                    let x = Math.floor(Math.random() * width);
-                    let y = Math.floor(Math.random() * height);
+                    let i = pixels.pop();
+                    let x = i % (canvas.width / power);
+                    let y = i / (canvas.width / power);
 
                     console.log(x, y);
 
-                    ctx.clearRect(x, y, 1, 1);
+                    ctx.clearRect(x * power, y * power, power + 0.5, power + 0.5);
                 }
 
                 function initialize() {
                     window.addEventListener('resize', resize_canvas, false);
+
                     resize_canvas();
                 }
 
@@ -75,7 +77,20 @@
                 function resize_canvas() {
                     canvas.width = window.innerWidth;
                     canvas.height = window.innerHeight;
+
+                    // console.log("width", canvas.width);
+                    // console.log("height", canvas.height);
+
+                    pixels = [];
+                    for (var i = 0; i < ((canvas.width * canvas.height) / (power * power)); i++) {
+                        pixels.push(i);
+                    }
+                    // shuffle(pixels);
+
                     redraw();
+                    colour();
+                    clear();
+                    console.log("RESIZE");
                 }
             })();
         </script>
