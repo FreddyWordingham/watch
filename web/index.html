@@ -48,7 +48,12 @@
             function submit_form() {
                 var word = document.getElementById("keyword_textbox").value;
                 console.log("Keyword value: ", word);
-                alert("The form was submitted");
+
+                if (word == "field") {
+                    window.location.href = "scenes/field.html";
+                }
+
+                alert("I don't know that word yet...");
             }
         </script>
     </body>
