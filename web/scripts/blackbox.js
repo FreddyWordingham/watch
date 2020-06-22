@@ -1,5 +1,5 @@
 function transform(word) {
     console.log("Transforming word: ", word);
 
-    word.append("+++")
+    4324382764329402
 }
