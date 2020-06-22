@@ -27,42 +27,54 @@
     </style>
 
     <body>
-        <canvas id='c' style='position:absolute; left:0px; top:0px;'>
+        <canvas id='main_canvas' style='position:absolute; left:0px; top:0px;'>
         </canvas>
 
         <script>
             (function () {
-                var
-                    // Obtain a reference to the canvas element using its id.
-                    htmlCanvas = document.getElementById('c'),
-                    // Obtain a graphics context on the canvas element for drawing.
-                    context = htmlCanvas.getContext('2d');
+                const canvas = document.getElementById('main_canvas');
+                const ctx = canvas.getContext('2d');
 
                 // Start listening to resize events and draw canvas.
                 initialize();
+                colour();
+                clear();
+                setInterval(clear, 10);
+
+                function colour() {
+                    var width = canvas.width;
+                    var height = canvas.height;
+
+                    ctx.fillStyle = 'black';
+                    ctx.fillRect(0, 0, width, height);
+                }
+
+                function clear() {
+                    var width = canvas.width;
+                    var height = canvas.height;
+
+                    let x = Math.floor(Math.random() * width);
+                    let y = Math.floor(Math.random() * height);
+
+                    console.log(x, y);
+
+                    ctx.clearRect(x, y, 1, 1);
+                }
 
                 function initialize() {
-                    // Register an event listener to call the resizeCanvas() function
-                    // each time the window is resized.
-                    window.addEventListener('resize', resizeCanvas, false);
-                    // Draw canvas border for the first time.
-                    resizeCanvas();
+                    window.addEventListener('resize', resize_canvas, false);
+                    resize_canvas();
                 }
 
-                // Display custom canvas. In this case it's a blue, 5 pixel
-                // border that resizes along with the browser window.
                 function redraw() {
-                    context.strokeStyle = 'blue';
-                    context.lineWidth = '5';
-                    context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+                    ctx.strokeStyle = 'blue';
+                    ctx.lineWidth = '5';
+                    ctx.strokeRect(0, 0, window.innerWidth, window.innerHeight);
                 }
 
-                // Runs each time the DOM window resize event fires.
-                // Resets the canvas dimensions to match window,
-                // then draws the new borders accordingly.
-                function resizeCanvas() {
-                    htmlCanvas.width = window.innerWidth;
-                    htmlCanvas.height = window.innerHeight;
+                function resize_canvas() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
                     redraw();
                 }
             })();
