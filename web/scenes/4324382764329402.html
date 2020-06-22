@@ -47,6 +47,20 @@
                     })();
                 })
 
+                var mouse = {
+                    x: 0,
+                    y: 0
+                };
+                canvas.addEventListener('mousemove', function (e) {
+                    mouse.x = e.pageX - this.offsetLeft;
+                    mouse.y = e.pageY - this.offsetTop;
+                    // mouse.x = (e.pageX - this.offsetLeft) / canvas.width;
+                    // mouse.y = (e.pageY - this.offsetTop) / canvas.height;
+                    console.log(mouse.x, mouse.y);
+                    ctx.clearRect(mouse.x - power, mouse.y - power, power * 2, power * 2);
+                }, false);
+
+
                 function colour() {
                     ctx.fillStyle = 'black';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -57,7 +71,7 @@
                     let x = i % (canvas.width / power);
                     let y = i / (canvas.width / power);
 
-                    console.log(x, y);
+                    // console.log(x, y);
 
                     ctx.clearRect(x * power, y * power, power + 0.5, power + 0.5);
                 }
