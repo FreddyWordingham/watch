@@ -33,6 +33,7 @@
         <script>
             (function () {
                 const power = 1;
+                const click = 8;
 
                 const canvas = document.getElementById('main_canvas');
                 const ctx = canvas.getContext('2d');
@@ -57,7 +58,7 @@
                     // mouse.x = (e.pageX - this.offsetLeft) / canvas.width;
                     // mouse.y = (e.pageY - this.offsetTop) / canvas.height;
                     console.log(mouse.x, mouse.y);
-                    ctx.clearRect(mouse.x - power, mouse.y - power, power * 2, power * 2);
+                    ctx.clearRect(mouse.x - (click / 2), mouse.y - (click / 2), click, click);
                 }, false);
 
 
