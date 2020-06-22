@@ -48,7 +48,7 @@
                 })
 
                 function colour() {
-                    ctx.fillStyle = 'black';
+                    ctx.fillStyle = 'lightGrey';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                 }
 
@@ -86,6 +86,13 @@
                         pixels.push(i);
                     }
                     // shuffle(pixels);
+
+                    for (var i = pixels.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * i)
+                        const temp = pixels[i]
+                        pixels[i] = pixels[j]
+                        pixels[j] = temp
+                    }
 
                     redraw();
                     colour();
