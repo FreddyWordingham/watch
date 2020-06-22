@@ -3,6 +3,10 @@ function transform(word) {
 
     word = word.toUpperCase();
 
+    if (word == "DOG") {
+        console.log("Dog field");
+        return 3084720398509283;
+    }
     if (word == "FIELD") {
         console.log("Found field");
         return 4324382764329402;
