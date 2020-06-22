@@ -8,19 +8,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css">
 
         <link rel="stylesheet" href="style/theme/light.css">
         <link rel="stylesheet" href="style/aesthetic.css">
         <link rel="stylesheet" href="style/layout.css">
-
-        <script src="interface/ui.js"></script>
     </head>
 
     <body>
@@ -38,7 +29,13 @@
                     </li>
                 </ul>
             </nav>
-            <div class="row flex-grow-1">
+            <div class="row flex-grow-1 align-items-center">
+                <div id="forms" class="flex-grow-1 form-space d-flex justify-content-center align-items-center">
+                    <form onsubmit="submit_form()">
+                        <input id="keyword_textbox" name="keyword" type="text" placeholder="keyword"
+                            style="text-align: center;">
+                    </form>
+                </div>
             </div>
             <footer id="footer" class="row">
                 <div class="text-center ">Freddy was 'ere
@@ -46,10 +43,11 @@
             </footer>
         </div>
         <script>
-            init();
-        </script>
-        <script type="text/javascript">
-
+            function submit_form() {
+                var word = document.getElementById("keyword_textbox").value;
+                console.log("Keyword value: ", word);
+                alert("The form was submitted");
+            }
         </script>
     </body>
 
