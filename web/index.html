@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>WATCH</title>
+        <title>Watch</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="style/theme/light.css">
         <link rel="stylesheet" href="style/aesthetic.css">
         <link rel="stylesheet" href="style/layout.css">
+
+        <script src="scripts/blackbox.js"></script>
     </head>
 
     <body>
@@ -48,6 +50,7 @@
             function submit_form() {
                 var word = document.getElementById("keyword_textbox").value;
                 console.log("Keyword value: ", word);
+                console.log("blackbox: ", transform(word));
 
                 if (word == "field") {
                     window.location.href = "scenes/field.html";
