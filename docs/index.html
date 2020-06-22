@@ -50,14 +50,16 @@
             function submit_form() {
                 var word = document.getElementById("keyword_textbox").value;
                 console.log("Keyword value: ", word);
-                console.log("blackbox: ", transform(word));
 
                 var key = transform(word);
+
+                if (key == 0) {
+                    return;
+                }
+
                 var path = "scenes/" + key.toString() + ".html";
                 console.log("path: ", path);
                 window.location.href = path;
-
-                alert("I don't know that word yet...");
             }
         </script>
     </body>
