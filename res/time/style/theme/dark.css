@@ -1,0 +1,19 @@
+:root
+{
+    --text-col: white;
+    --background-col: silver;
+    --runner-col: black;
+    --banner-col: grey;
+    --content-col: darkGrey;
+    --hover-col: indianred;
+    --active-col: crimson;
+
+    --shadow-style:  0 0 2pt 1pt black;
+
+    --background-tex: url("textures/cartographer.png");
+    --runner-tex: url("textures/shattered-dark.png");
+    --banner-tex: url("textures/diagmonds-dark.png");
+    --content-tex: url("textures/brushed-alum.png");
+
+    color: var(--text-col);
+}

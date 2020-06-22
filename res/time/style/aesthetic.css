@@ -1,0 +1,90 @@
+body
+{
+    background-color: var(--background-col);
+    background-image: var(--background-tex);
+    color: var(--text-col);
+}
+
+hr {
+    border-top: 1px solid var(--text-col);
+}
+
+.title
+{
+    background-color: var(--banner-col);
+    background-image: var(--banner-tex);
+    box-shadow: var(--shadow-style);
+}
+
+.form-space
+{
+    background-color: var(--content-col);
+    background-image: var(--content-tex);
+    box-shadow: var(--shadow-style);
+}
+
+.entry-title
+{
+    background-color: var(--banner-col);
+    background-image: var(--banner-tex);
+    box-shadow: var(--shadow-style);
+}
+
+.entry-add
+{
+    background-color: var(--banner-col);
+    background-image: var(--banner-tex);
+    box-shadow: var(--shadow-style);
+}
+
+.entry-list
+{
+    background-color: var(--content-col);
+    background-image: var(--content-tex);
+    box-shadow: var(--shadow-style);
+}
+
+.button
+{
+    background-color: var(--banner-col);
+    background-image: var(--banner-tex);
+    box-shadow: var(--shadow-style);
+}
+
+.button:hover
+{
+    background-color: var(--hover-col);
+}
+
+.button.active
+{
+    background-color: var(--active-col);
+}
+
+#header
+{
+    background-color: var(--runner-col);
+    background-image: var(--runner-tex);
+    box-shadow: var(--shadow-style);
+}
+
+#scene
+{
+    background-color: var(--content-col);
+    background-image: var(--content-tex);
+    box-shadow: var(--shadow-style);
+}
+
+.graph
+{
+    background-color: var(--content-col);
+    background-image: var(--content-tex);
+    box-shadow: var(--shadow-style);
+}
+
+#footer
+{
+    background-color: var(--runner-col);
+    background-image: var(--runner-tex);
+    box-shadow: var(--shadow-style);
+}

@@ -1,0 +1,133 @@
+html, body
+{
+    height: 100%;
+}
+
+input, select
+{
+    font-family:inherit;
+    font-size:inherit;
+    background: transparent;
+    color: var(--text-col);
+    border: none;
+    outline: 1px solid var(--text-col);
+    height: 25px;
+}
+input[type=checkbox]
+{
+    outline: none;
+}
+input:focus, select:focus
+{
+    background-color: var(--active-col);
+}
+
+.icon-align
+{
+    vertical-align: text-bottom;
+}
+
+.min-100
+{
+    min-height: 100%;
+}
+
+.title
+{
+    padding: 10px;
+}
+
+.form-space
+{
+    overflow-y:auto;
+    height:0px;
+    min-height: 100px;
+    padding: 10px;
+    margin: 0;
+}
+
+.form
+{
+    display: none;
+}
+
+.form-row
+{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    margin: 10px;
+}
+
+.form-row > * > * > *
+{
+    width: calc(100% - 25px);
+}
+
+.form-row-data-1
+{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.form-row-data-2
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.form-row-data-3
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.entry-name
+{
+    word-wrap: break-word;
+    overflow: hidden;
+    text-align: center;
+    margin: 10px;
+}
+
+.entry-list
+{
+    overflow-y:auto;
+    height:0px;
+    min-height: 100px;
+}
+
+.load
+{
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.holder
+{
+    display: grid;
+    grid-gap: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+#graphical
+{
+    display: grid;
+    grid-template-rows: 7fr 3fr;
+}
+
+#scene
+{
+    margin:10px;
+    width:100%;
+}
+
+.graph
+{
+    margin:10px;
+    width:100%;
+}
+
+#footer
+{
+    justify-content: center;
+}
