@@ -14,11 +14,11 @@ hr {
     box-shadow: var(--shadow-style);
 }
 
-.form-space {
+/* .form-space {
     background-color: var(--content-col);
     background-image: var(--content-tex);
     box-shadow: var(--shadow-style);
-}
+} */
 
 .entry-title {
     background-color: var(--banner-col);
