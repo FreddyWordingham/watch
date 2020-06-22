@@ -1,5 +1,5 @@
 function transform(word) {
     console.log("Transforming word: ", word);
 
-    4324382764329402
+    return 4324382764329402;
 }
