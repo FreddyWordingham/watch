@@ -2,25 +2,27 @@
 <html lang="en">
 
     <head>
-        <title>WATCH</title>
+        <title>Watch</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="icon" type="image/png" href=" res/graphics/logo.png" />
+        <link rel="icon" type="image/png" href="../res/graphics/icon.png" />
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
         <link rel="stylesheet" href="style/theme/light.css">
         <link rel="stylesheet" href="style/aesthetic.css">
         <link rel="stylesheet" href="style/layout.css">
+
+        <script src="scripts/blackbox.js"></script>
     </head>
 
     <body>
         <div class="container-fluid min-100 d-flex flex-column">
             <nav id="header" class="row navbar navbar-expand-sm navbar-dark flex-shrink-0">
                 <a class="navbar-brand" href="#">
-                    <img src="res/graphics/logo.png" style="width:40px;">
+                    <img src="../res/graphics/icon.png" style="width:40px;">
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -48,7 +50,14 @@
             function submit_form() {
                 var word = document.getElementById("keyword_textbox").value;
                 console.log("Keyword value: ", word);
-                alert("The form was submitted");
+                console.log("blackbox: ", transform(word));
+
+                var key = transform(word);
+                var path = "scenes/" + key.toString() + ".html";
+                console.log("path: ", path);
+                window.location.href = path;
+
+                alert("I don't know that word yet...");
             }
         </script>
     </body>
