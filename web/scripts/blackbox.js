@@ -3,13 +3,15 @@ function transform(word) {
 
     word = word.toUpperCase();
 
-    if (word == "DOG") {
-        console.log("Dog field");
-        return 3084720398509283;
+    if (word == "DREAM") {
+        return 3426372374893290;
     }
     if (word == "FIELD") {
         console.log("Found field");
         return 4324382764329402;
+    }
+    if (word == "VIVID") {
+        return 9375834738739834;
     }
 
     alert("I don't know that word yet...");

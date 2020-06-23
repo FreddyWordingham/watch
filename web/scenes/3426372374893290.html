@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Field</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            border: 0;
+            overflow: hidden;
+            /*  Disable scrollbars */
+            display: block;
+            /* No floating content on sides */
+            background-image: url('../res/renders/dream.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+    </style>
+
+    <body>
+        <canvas id='main_canvas' style='position:absolute; left:0px; top:0px;'>
+        </canvas>
+
+        <script>
+            (function () {
+                const power = 1;
+                const click = 8;
+
+                const canvas = document.getElementById('main_canvas');
+                const ctx = canvas.getContext('2d');
+
+                var pixels = [];
+                window.addEventListener('load', function () {
+                    initialize();
+
+                    (function () {
+                        clear();
+                        setTimeout(arguments.callee, 1);
+                    })();
+                })
+
+                var mouse = {
+                    x: 0,
+                    y: 0
+                };
+                canvas.addEventListener('mousemove', function (e) {
+                    mouse.x = e.pageX - this.offsetLeft;
+                    mouse.y = e.pageY - this.offsetTop;
+                    // mouse.x = (e.pageX - this.offsetLeft) / canvas.width;
+                    // mouse.y = (e.pageY - this.offsetTop) / canvas.height;
+                    console.log(mouse.x, mouse.y);
+                    ctx.clearRect(mouse.x - (click / 2), mouse.y - (click / 2), click, click);
+                }, false);
+
+
+                function colour() {
+                    ctx.fillStyle = 'black';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+
+                function clear() {
+                    let i = pixels.pop();
+                    let x = i % (canvas.width / power);
+                    let y = i / (canvas.width / power);
+
+                    // console.log(x, y);
+
+                    ctx.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                }
+
+                function initialize() {
+                    window.addEventListener('resize', resize_canvas, false);
+
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+
+                    pixels = [];
+                    for (var i = 0; i < ((canvas.width * canvas.height) / (power * power)); i++) {
+                        pixels.push(i);
+                    }
+                    // shuffle(pixels);
+
+                    for (var i = pixels.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * i)
+                        const temp = pixels[i]
+                        pixels[i] = pixels[j]
+                        pixels[j] = temp
+                    }
+
+                    redraw();
+                    colour();
+                    clear();
+                }
+
+                function redraw() {
+                    ctx.strokeStyle = 'blue';
+                    ctx.lineWidth = '5';
+                    ctx.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+                }
+
+                function resize_canvas() {
+                    console.log("RESIZE");
+                }
+            })();
+        </script>
+    </body>
+
+</html>
