@@ -7,8 +7,10 @@ function transform(word) {
         return 3426372374893290;
     }
     if (word == "FIELD") {
-        console.log("Found field");
         return 4324382764329402;
+    }
+    if (word == "POND") {
+        return 4632743894942332;
     }
     if (word == "VIVID") {
         return 9375834738739834;
