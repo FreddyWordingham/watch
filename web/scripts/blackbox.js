@@ -33,6 +33,5 @@ function transform(word) {
     score += (word.indexOf("_") + 1) * 64;
     console.log(score);
 
-    alert("I don't know that word yet...");
-    return 0;
+    return score;
 }
