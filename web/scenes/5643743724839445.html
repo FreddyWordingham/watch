@@ -65,9 +65,12 @@
                     console.log(mouse.x, mouse.y);
 
                     ctx.save();
-                    var theta = taps * 10;
+                    // var theta = taps * 10;
                     var x = mouse.x - (click / 2);
                     var y = mouse.y - (click / 2);
+
+                    var theta = Math.sin((x / 100) + (y / 100));
+
                     var x_prime = (Math.cos(theta) * x) - (Math.sin(theta) * y);
                     var y_prime = (Math.sin(theta) * x) + (Math.cos(theta) * y);
 
