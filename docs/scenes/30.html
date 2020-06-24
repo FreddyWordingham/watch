@@ -27,7 +27,11 @@
     </style>
 
     <body>
-        <canvas id='main_canvas' style='position:absolute; left:0px; top:0px;'>
+        <canvas id='red_canvas' style='position:absolute; left:0px; top:0px; opacity:0.5;'>
+        </canvas>
+        <canvas id='blue_canvas' style='position:absolute; left:0px; top:0px; opacity:0.5;'>
+        </canvas>
+        <canvas id='green_canvas' style='position:absolute; left:0px; top:0px; opacity:0.5;'>
         </canvas>
 
         <script>
@@ -37,8 +41,12 @@
                 var click = 8;
                 var taps = 0;
 
-                const canvas = document.getElementById('main_canvas');
-                const ctx = canvas.getContext('2d');
+                const red_canvas = document.getElementById('red_canvas');
+                const green_canvas = document.getElementById('green_canvas');
+                const blue_canvas = document.getElementById('blue_canvas');
+                const ctx_r = red_canvas.getContext('2d');
+                const ctx_g = green_canvas.getContext('2d');
+                const ctx_b = blue_canvas.getContext('2d');
 
                 var pixels = [];
                 window.addEventListener('load', function () {
@@ -54,7 +62,8 @@
                     x: 0,
                     y: 0
                 };
-                canvas.addEventListener('mousemove', function (e) {
+
+                function tap(e) {
                     taps += 1;
 
                     var x = Math.random() + 1;
@@ -64,7 +73,9 @@
                     mouse.y = e.pageY - this.offsetTop;
                     console.log(mouse.x, mouse.y);
 
-                    ctx.save();
+                    ctx_r.save();
+                    ctx_g.save();
+                    ctx_b.save();
                     // var theta = taps * 10;
                     var x = mouse.x - (click / 2);
                     var y = mouse.y - (click / 2);
@@ -74,36 +85,60 @@
                     var x_prime = (Math.cos(theta) * x) - (Math.sin(theta) * y);
                     var y_prime = (Math.sin(theta) * x) + (Math.cos(theta) * y);
 
-                    ctx.rotate(-theta);
-                    ctx.clearRect(x_prime, y_prime, click, click);
-                    ctx.restore();
+                    ctx_r.rotate(-theta);
+                    ctx_r.clearRect(x_prime + ((Math.random() * 20) - 10), y_prime + ((Math.random() * 20) - 10),
+                        click, click);
+                    ctx_r.restore();
 
-                }, false);
+                    ctx_g.rotate(-theta);
+                    ctx_g.clearRect(x_prime + ((Math.random() * 20) - 10), y_prime + ((Math.random() * 20) - 10),
+                        click, click);
+                    ctx_g.restore();
+
+                    ctx_b.rotate(-theta);
+                    ctx_b.clearRect(x_prime + ((Math.random() * 20) - 10), y_prime + ((Math.random() * 20) - 10),
+                        click, click);
+                    ctx_b.restore();
+                }
+
+                green_canvas.addEventListener('mousemove', tap, false);
 
 
                 function colour() {
-                    ctx.fillStyle = 'black';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx_r.fillStyle = 'red';
+                    ctx_r.fillRect(0, 0, red_canvas.width, red_canvas.height);
+
+                    ctx_g.fillStyle = 'green';
+                    ctx_g.fillRect(0, 0, green_canvas.width, green_canvas.height);
+
+                    ctx_b.fillStyle = 'blue';
+                    ctx_b.fillRect(0, 0, blue_canvas.width, blue_canvas.height);
                 }
 
                 function clear() {
                     let i = pixels.pop();
-                    let x = i % (canvas.width / power);
-                    let y = i / (canvas.width / power);
+                    let x = i % (red_canvas.width / power);
+                    let y = i / (red_canvas.width / power);
 
                     // console.log(x, y);
 
-                    ctx.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                    ctx_r.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                    ctx_g.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                    ctx_b.clearRect(x * power, y * power, power + 0.5, power + 0.5);
                 }
 
                 function initialize() {
                     window.addEventListener('resize', resize_canvas, false);
 
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
+                    red_canvas.width = window.innerWidth;
+                    red_canvas.height = window.innerHeight;
+                    green_canvas.width = window.innerWidth;
+                    green_canvas.height = window.innerHeight;
+                    blue_canvas.width = window.innerWidth;
+                    blue_canvas.height = window.innerHeight;
 
                     pixels = [];
-                    for (var i = 0; i < ((canvas.width * canvas.height) / (power * power)); i++) {
+                    for (var i = 0; i < ((red_canvas.width * red_canvas.height) / (power * power)); i++) {
                         pixels.push(i);
                     }
                     // shuffle(pixels);
@@ -123,9 +158,17 @@
                 }
 
                 function redraw() {
-                    ctx.strokeStyle = 'blue';
-                    ctx.lineWidth = '5';
-                    ctx.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+                    ctx_r.strokeStyle = 'red';
+                    ctx_r.lineWidth = '5';
+                    ctx_r.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+
+                    ctx_g.strokeStyle = 'green';
+                    ctx_g.lineWidth = '5';
+                    ctx_g.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+
+                    ctx_b.strokeStyle = 'blue';
+                    ctx_b.lineWidth = '5';
+                    ctx_b.strokeRect(0, 0, window.innerWidth, window.innerHeight);
                 }
 
                 function resize_canvas() {
