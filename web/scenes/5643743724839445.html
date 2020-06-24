@@ -19,7 +19,6 @@
             /*  Disable scrollbars */
             display: block;
             /* No floating content on sides */
-            background-image: url('../res/renders/widescreen_pond.png');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: 100% 100%;
@@ -118,6 +117,8 @@
                     redraw();
                     colour();
                     clear();
+
+                    document.body.style.backgroundImage = "url('../res/renders/widescreen_pond.png')";
                 }
 
                 function redraw() {
