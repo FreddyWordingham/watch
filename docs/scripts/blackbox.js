@@ -15,6 +15,9 @@ function transform(word) {
     if (word == "VIVID") {
         return 9375834738739834;
     }
+    if (word == "ANTLER") {
+        return 5643743724839445;
+    }
 
     alert("I don't know that word yet...");
     return 0;
