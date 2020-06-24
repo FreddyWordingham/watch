@@ -32,8 +32,9 @@
 
         <script>
             (function () {
-                const power = 1;
-                const click = 8;
+                var power = 1;
+                const click_power = 4;
+                var click = 8;
                 var taps = 0;
 
                 const canvas = document.getElementById('main_canvas');
@@ -56,14 +57,14 @@
                 canvas.addEventListener('mousemove', function (e) {
                     taps += 1;
 
+                    var x = Math.random() + 1;
+                    click = (x * x * x) * click_power;
+
                     mouse.x = e.pageX - this.offsetLeft;
                     mouse.y = e.pageY - this.offsetTop;
-                    // mouse.x = (e.pageX - this.offsetLeft) / canvas.width;
-                    // mouse.y = (e.pageY - this.offsetTop) / canvas.height;
                     console.log(mouse.x, mouse.y);
 
                     ctx.save();
-                    // ctx.translate((mouse.x - (click / 2)), -(mouse.y - (click / 2)));
                     var theta = taps * 10;
                     var x = mouse.x - (click / 2);
                     var y = mouse.y - (click / 2);
@@ -71,7 +72,6 @@
                     var y_prime = (Math.sin(theta) * x) + (Math.cos(theta) * y);
 
                     ctx.rotate(-theta);
-                    // ctx.clearRect(mouse.x - (click / 2), mouse.y - (click / 2), click, click);
                     ctx.clearRect(x_prime, y_prime, click, click);
                     ctx.restore();
 
