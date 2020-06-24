@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>Field</title>
+        <title>Fox</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,7 +19,7 @@
             /*  Disable scrollbars */
             display: block;
             /* No floating content on sides */
-            background-image: url('../res/renders/widescreen_pond.png');
+            background: black;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: 100% 100%;
@@ -118,6 +118,8 @@
                     redraw();
                     colour();
                     clear();
+
+                    document.body.style.backgroundImage = "url('../res/renders/fox.png')";
                 }
 
                 function redraw() {
