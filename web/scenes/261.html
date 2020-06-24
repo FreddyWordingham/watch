@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>Field</title>
+        <title>Dream</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,7 +19,7 @@
             /*  Disable scrollbars */
             display: block;
             /* No floating content on sides */
-            background-image: url('../res/renders/field.png');
+            background: black;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: 100% 100%;
@@ -32,8 +32,10 @@
 
         <script>
             (function () {
-                const power = 1;
-                const click = 8;
+                var power = 1;
+                const click_power = 4;
+                var click = 8;
+                var taps = 0;
 
                 const canvas = document.getElementById('main_canvas');
                 const ctx = canvas.getContext('2d');
@@ -53,12 +55,29 @@
                     y: 0
                 };
                 canvas.addEventListener('mousemove', function (e) {
+                    taps += 1;
+
+                    var x = Math.random() + 1;
+                    click = (x * x * x) * click_power;
+
                     mouse.x = e.pageX - this.offsetLeft;
                     mouse.y = e.pageY - this.offsetTop;
-                    // mouse.x = (e.pageX - this.offsetLeft) / canvas.width;
-                    // mouse.y = (e.pageY - this.offsetTop) / canvas.height;
                     console.log(mouse.x, mouse.y);
-                    ctx.clearRect(mouse.x - (click / 2), mouse.y - (click / 2), click, click);
+
+                    ctx.save();
+                    // var theta = taps * 10;
+                    var x = mouse.x - (click / 2);
+                    var y = mouse.y - (click / 2);
+
+                    var theta = Math.sin((x / 100) + (y / 100));
+
+                    var x_prime = (Math.cos(theta) * x) - (Math.sin(theta) * y);
+                    var y_prime = (Math.sin(theta) * x) + (Math.cos(theta) * y);
+
+                    ctx.rotate(-theta);
+                    ctx.clearRect(x_prime, y_prime, click, click);
+                    ctx.restore();
+
                 }, false);
 
 
@@ -99,6 +118,8 @@
                     redraw();
                     colour();
                     clear();
+
+                    document.body.style.backgroundImage = "url('../res/renders/dream.png')";
                 }
 
                 function redraw() {
@@ -108,28 +129,6 @@
                 }
 
                 function resize_canvas() {
-                    // canvas.width = window.innerWidth;
-                    // canvas.height = window.innerHeight;
-
-                    // console.log("width", canvas.width);
-                    // console.log("height", canvas.height);
-
-                    // pixels = [];
-                    // for (var i = 0; i < ((canvas.width * canvas.height) / (power * power)); i++) {
-                    //     pixels.push(i);
-                    // }
-                    // // shuffle(pixels);
-
-                    // for (var i = pixels.length - 1; i > 0; i--) {
-                    //     const j = Math.floor(Math.random() * i)
-                    //     const temp = pixels[i]
-                    //     pixels[i] = pixels[j]
-                    //     pixels[j] = temp
-                    // }
-
-                    // redraw();
-                    // colour();
-                    // clear();
                     console.log("RESIZE");
                 }
             })();
