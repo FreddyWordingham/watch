@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Dia</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            border: 0;
+            overflow: hidden;
+            /*  Disable scrollbars */
+            display: block;
+            /* No floating content on sides */
+            background: white;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+    </style>
+
+    <body>
+        <canvas id='red_canvas' style='position:absolute; left:0px; top:0px; opacity:0.75;'>
+        </canvas>
+        <canvas id='blue_canvas' style='position:absolute; left:0px; top:0px; opacity:0.75;'>
+        </canvas>
+        <canvas id='green_canvas' style='position:absolute; left:0px; top:0px; opacity:0.75;'>
+        </canvas>
+
+        <p>Do I deserve to be loved?
+            <br> Yes, right?
+            <br> Isn't it obvious?
+            <br> Honestly, I don't know.
+            <br> My mind tells me the truth is, no, I don't; the Universe, quite simply doesn't owe me a thing.
+        </p>
+
+        <b>
+            <p>The literal totality of existence frozen in the most beautiful rendering, myriad sparkling icy
+                silences, suspended above our heads.
+                <br> I was okay with that.
+            </p>
+
+            <p> Wandering stars are christened as they're flung from their parental group, left to travel the expanse of
+                the
+                Universe
+                <br> alone - seemingly forever.
+                <br> By lamentable occasion, maybe I am one such star.
+            </p>
+        </b>
+
+        <hr>
+
+        <p>Do I need anyone else?
+            <br>No, right?
+            <br>Isn't it obvious by now?
+            <br>I don't know, honestly.
+            <br>My heart tells me I do; for stars wilt by themselves.
+        </p>
+
+        <b>
+            <p>Dim stars contend with eons of mediocrity before fading to obscurity, while brightest stars collapse
+                under the
+                literal
+                weight of their own brilliance.
+                <br>At least I could shine bright.
+            </p>
+
+            <p>Although rarely, through sheer astronomical chance, sometimes two wandering starts meet in dance - a
+                hastening
+                twist.
+                <br>All the same, time begins to slow for them.
+            </p>
+        </b>
+
+        <hr>
+
+        <p>I deserve to be loved.
+            <br>Yes I do.
+            <br>I am sure of that now.
+            <br>Honestly, I know.
+            <br>The Universe does love me, I've just got to find the right part of it.
+        </p>
+
+        <b>
+            <p>More massive stars may reach out a limb to smaller companions, a life extending hug. Ostensibly:
+                unbalance.
+                <br>But whilst the smaller shines ever brighter in the gratuitous embrace of the greater, the larger
+                heals too.
+            </p>
+
+            <p>Unburdened from the weight it could not bare alone, renewed by the vigour of it's new found foil, it can
+                conserve
+                its
+                fire.
+                <br>A momentary flash, and existence of empty solitude - replaced by a pair of ever bright souls.
+            </p>
+        </b>
+
+        <hr>
+
+        <p>You deserve love.
+            <br>You do.
+            <br>Although you don't believe me.
+            <br>I promise honestly, it's true.
+            <br>I wasn't tricked, or coerced, I quite simply, just saw the real you.
+        </p>
+
+        <b>
+            <p>Now, their orbit memorised, but their story is unfinished yet.
+                <br>Gravity weak, but it always wins, for they can not help but fall for one another.
+            </p>
+
+            <p>Potential traded, in equity, for pace as the two approach, time dilation sets in.
+                <br>Their racing passion for one another suspending them forever in time, together.
+            </p>
+
+            <p>God, with the very laws of space and time, can not separate them now.
+            </p>
+        </b>
+
+        <script>
+            (function () {
+                var power = 1;
+                const click_power = 4;
+                var click = 8;
+                var taps = 0;
+
+                const red_canvas = document.getElementById('red_canvas');
+                const green_canvas = document.getElementById('green_canvas');
+                const blue_canvas = document.getElementById('blue_canvas');
+                const ctx_r = red_canvas.getContext('2d');
+                const ctx_g = green_canvas.getContext('2d');
+                const ctx_b = blue_canvas.getContext('2d');
+
+                var pixels = [];
+                window.addEventListener('load', function () {
+                    initialize();
+
+                    (function () {
+                        clear();
+                        setTimeout(arguments.callee, 1);
+                    })();
+                })
+
+                var mouse = {
+                    x: 0,
+                    y: 0
+                };
+
+                function tap(e) {
+                    taps += 1;
+
+                    var x = Math.random() + 1;
+                    click = (x * x * x) * click_power;
+
+                    mouse.x = e.pageX - this.offsetLeft;
+                    mouse.y = e.pageY - this.offsetTop;
+                    console.log(mouse.x, mouse.y);
+
+                    ctx_r.save();
+                    ctx_g.save();
+                    ctx_b.save();
+                    // var theta = taps * 10;
+                    var x = mouse.x - (click / 2);
+                    var y = mouse.y - (click / 2);
+
+                    var theta = Math.sin((x / 100) + (y / 100));
+
+                    var x_prime = (Math.cos(theta) * x) - (Math.sin(theta) * y);
+                    var y_prime = (Math.sin(theta) * x) + (Math.cos(theta) * y);
+
+                    ctx_r.rotate(-theta);
+                    ctx_r.clearRect(x_prime + ((Math.random() * 20) - 10), y_prime + ((Math.random() * 20) - 10),
+                        click, click);
+                    ctx_r.restore();
+
+                    ctx_g.rotate(-theta);
+                    ctx_g.clearRect(x_prime + ((Math.random() * 20) - 10), y_prime + ((Math.random() * 20) - 10),
+                        click, click);
+                    ctx_g.restore();
+
+                    ctx_b.rotate(-theta);
+                    ctx_b.clearRect(x_prime + ((Math.random() * 20) - 10), y_prime + ((Math.random() * 20) - 10),
+                        click, click);
+                    ctx_b.restore();
+                }
+
+                green_canvas.addEventListener('mousemove', tap, false);
+
+
+                function colour() {
+                    ctx_r.fillStyle = 'red';
+                    ctx_r.fillRect(0, 0, red_canvas.width, red_canvas.height);
+
+                    ctx_g.fillStyle = 'green';
+                    ctx_g.fillRect(0, 0, green_canvas.width, green_canvas.height);
+
+                    ctx_b.fillStyle = 'blue';
+                    ctx_b.fillRect(0, 0, blue_canvas.width, blue_canvas.height);
+                }
+
+                function clear() {
+                    let i = pixels.pop();
+                    let x = i % (red_canvas.width / power);
+                    let y = i / (red_canvas.width / power);
+
+                    // console.log(x, y);
+
+                    ctx_r.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                    ctx_g.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                    ctx_b.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                }
+
+                function initialize() {
+                    window.addEventListener('resize', resize_canvas, false);
+
+                    red_canvas.width = window.innerWidth;
+                    red_canvas.height = window.innerHeight;
+                    green_canvas.width = window.innerWidth;
+                    green_canvas.height = window.innerHeight;
+                    blue_canvas.width = window.innerWidth;
+                    blue_canvas.height = window.innerHeight;
+
+                    pixels = [];
+                    for (var i = 0; i < ((red_canvas.width * red_canvas.height) / (power * power)); i++) {
+                        pixels.push(i);
+                    }
+                    // shuffle(pixels);
+
+                    for (var i = pixels.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * i)
+                        const temp = pixels[i]
+                        pixels[i] = pixels[j]
+                        pixels[j] = temp
+                    }
+
+                    redraw();
+                    colour();
+                    clear();
+                }
+
+                function redraw() {
+                    ctx_r.strokeStyle = 'red';
+                    ctx_r.lineWidth = '5';
+                    ctx_r.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+
+                    ctx_g.strokeStyle = 'green';
+                    ctx_g.lineWidth = '5';
+                    ctx_g.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+
+                    ctx_b.strokeStyle = 'blue';
+                    ctx_b.lineWidth = '5';
+                    ctx_b.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+                }
+
+                function resize_canvas() {
+                    console.log("RESIZE");
+                }
+            })();
+        </script>
+    </body>
+
+</html>
