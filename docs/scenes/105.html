@@ -36,6 +36,7 @@
                 const click_power = 4;
                 var click = 8;
                 var taps = 0;
+                const REVEAL_RATE = 40;
 
                 const canvas = document.getElementById('main_canvas');
                 const ctx = canvas.getContext('2d');
@@ -87,13 +88,15 @@
                 }
 
                 function clear() {
-                    let i = pixels.pop();
-                    let x = i % (canvas.width / power);
-                    let y = i / (canvas.width / power);
+                    for (var v = 0; v < REVEAL_RATE; ++v) {
+                        let i = pixels.pop();
+                        let x = i % (canvas.width / power);
+                        let y = i / (canvas.width / power);
 
-                    // console.log(x, y);
+                        // console.log(x, y);
 
-                    ctx.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                        ctx.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                    }
                 }
 
                 function initialize() {
