@@ -33,8 +33,8 @@
         <script>
             (function () {
                 var power = 1;
-                const click_power = 4;
-                var click = 8;
+                const click_power = 8;
+                var click = 16;
                 var taps = 0;
 
                 const canvas = document.getElementById('main_canvas');
@@ -57,7 +57,7 @@
                 canvas.addEventListener('mousemove', function (e) {
                     taps += 1;
 
-                    var x = Math.random() + 1;
+                    var x = Math.random() + 2;
                     click = (x * x * x) * click_power;
 
                     mouse.x = e.pageX - this.offsetLeft;
@@ -87,7 +87,7 @@
                 }
 
                 function clear() {
-                    for (var i = 0; i < 10; ++i) {
+                    for (var i = 0; i < 25; ++i) {
                         let i = pixels.pop();
                         let x = i % (canvas.width / power);
                         let y = i / (canvas.width / power);
