@@ -2,4 +2,4 @@
 
 beautifully impossible
 
-![image info](./res/renders/field.png)
+![image info](./web/res/renders/field.png)
