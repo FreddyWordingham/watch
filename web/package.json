@@ -1,5 +1,5 @@
 {
-    "name": "watchApp",
+    "name": "watch_app",
     "version": "0.1.0",
     "description": "Rust wasm packages with web interface.",
     "main": "main.js",

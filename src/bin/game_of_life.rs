@@ -6,7 +6,7 @@ use watch::*;
 pub fn main() {
     let num_steps = 0;
 
-    let mut board = Board::new();
+    let mut board = Board::new(64, 64);
     for _t in 0..num_steps {
         board.tick();
     }

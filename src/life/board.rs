@@ -18,14 +18,12 @@ pub struct Board {
 #[wasm_bindgen]
 impl Board {
     /// Construct a new instance.
-    #[inline]
     #[must_use]
-    pub fn new() -> Self {
-        Self::new_sized(64, 64)
+    pub fn new(width: u32, height: u32) -> Self {
+        Self::new_sized(width, height)
     }
 
     /// Iterate the board forward a single step.
-    #[inline]
     pub fn tick(&mut self) {
         let mut next = self.cells.clone();
 
@@ -51,28 +49,24 @@ impl Board {
     }
 
     /// Render the board to a string.
-    #[inline]
     #[must_use]
     pub fn render(&self) -> String {
         self.to_string()
     }
 
     /// Retrieve the board width.
-    #[inline]
     #[must_use]
     pub fn width(&self) -> u32 {
         self.res[0] as u32
     }
 
     /// Retrieve the board height.
-    #[inline]
     #[must_use]
     pub fn height(&self) -> u32 {
         self.res[1] as u32
     }
 
     /// Reference the array of cells as a pointer.
-    #[inline]
     #[must_use]
     pub fn cells(&self) -> *const Cell {
         self.cells.as_ptr()
@@ -123,6 +117,12 @@ impl Board {
             }
         }
         count
+    }
+}
+
+impl Default for Board {
+    fn default() -> Self {
+        Self::new(64, 64)
     }
 }
 
