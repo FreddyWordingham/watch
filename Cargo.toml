@@ -1,0 +1,29 @@
+[package]
+name = "what-are-the-chances"
+version = "0.1.0"
+authors = ["Freddy Wordingham <fjmw201@exeter.ac.uk>"]
+edition = "2018"
+
+# [lib]
+# crate-type = ["cdylib", "rlib"]
+
+[features]
+# default = ["console_error_panic_hook"]
+
+[dependencies]
+wasm-bindgen = "0.2.*"
+console_error_panic_hook = { version = "0.1.6", optional = true }
+wee_alloc = { version = "0.4.5", optional = true }
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.*"
+
+[profile.release]
+opt-level = "s"
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
+
+[dependencies.web-sys]
+version = "0.3"
+features = [  "console"]
