@@ -21,6 +21,7 @@
     clippy::integer_arithmetic,
     clippy::integer_division,
     clippy::modulo_arithmetic,
+    clippy::multiple_inherent_impl,
     clippy::panic,
     clippy::print_stdout,
     clippy::unreachable,
