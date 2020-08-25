@@ -253,6 +253,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "watch"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "ndarray",
+ "wasm-bindgen",
+ "wasm-bindgen-test",
+ "web-sys",
+ "wee_alloc",
+]
+
+[[package]]
 name = "web-sys"
 version = "0.3.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -272,18 +284,6 @@ dependencies = [
  "libc",
  "memory_units",
  "winapi",
-]
-
-[[package]]
-name = "what-are-the-chances"
-version = "0.1.0"
-dependencies = [
- "console_error_panic_hook",
- "ndarray",
- "wasm-bindgen",
- "wasm-bindgen-test",
- "web-sys",
- "wee_alloc",
 ]
 
 [[package]]

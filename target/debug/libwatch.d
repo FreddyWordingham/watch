@@ -1,0 +1,1 @@
+/Users/freddywordingham/Projects/watch/target/debug/libwatch.rlib: /Users/freddywordingham/Projects/watch/src/lib.rs /Users/freddywordingham/Projects/watch/src/life/board.rs /Users/freddywordingham/Projects/watch/src/life/cell.rs /Users/freddywordingham/Projects/watch/src/life/mod.rs build.rs
