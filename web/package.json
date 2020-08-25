@@ -1,10 +1,10 @@
 {
-    "name": "Game-of-Life App",
+    "name": "watchApp",
     "version": "0.1.0",
     "description": "Rust wasm packages with web interface.",
     "main": "main.js",
     "bin": {
-        "game_of_life": ".bin/game_of_life.js"
+        "gen_wasm_app": ".bin/gen_wasm_app.js"
     },
     "scripts": {
         "build": "webpack --config webpack.config.js",
@@ -22,7 +22,7 @@
     ],
     "author": "Freddy Wordingham <fjmw201@exeter.ac.uk>",
     "dependencies": {
-        "game-of-life": "file:../pkg"
+        "watch": "file:../pkg"
     },
     "devDependencies": {
         "hello-wasm-pack": "^0.1.0",
