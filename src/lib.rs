@@ -34,9 +34,11 @@ pub use self::life::*;
 
 use wasm_bindgen::prelude::*;
 
-// Required once.
+/// Set the console error panic hook.
+/// Required to be called once.
 #[allow(dead_code)]
-pub fn set_panic_hook() {
+#[inline]
+pub const fn set_panic_hook() {
     #[cfg(feature = "console_error_panic_hook")]
     console_error_panic_hook::set_once();
 }
@@ -46,12 +48,15 @@ pub fn set_panic_hook() {
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+/// Console alert binding.
 #[wasm_bindgen]
 extern "C" {
     fn alert(s: &str);
 }
 
+/// Test greeting function.
 #[wasm_bindgen]
+#[inline]
 pub fn greet(name: &str) {
     alert(&format!("Hello, {}!", name));
 }

@@ -8,7 +8,9 @@ use wasm_bindgen::prelude::*;
 /// Game board.
 #[wasm_bindgen]
 pub struct Board {
+    /// Board size.
     res: [usize; 2],
+    /// Cell state array.
     cells: Array2<Cell>,
 }
 
@@ -18,13 +20,12 @@ impl Board {
     /// Construct a new instance.
     #[inline]
     #[must_use]
-    pub fn new() -> Board {
+    pub fn new() -> Self {
         Self::new_sized(64, 64)
     }
 
     /// Iterate the board forward a single step.
     #[inline]
-    #[must_use]
     pub fn tick(&mut self) {
         let mut next = self.cells.clone();
 
@@ -82,7 +83,7 @@ impl Board {
     /// Construct a new instance with a given board size.
     #[inline]
     #[must_use]
-    fn new_sized(width: u32, height: u32) -> Board {
+    fn new_sized(width: u32, height: u32) -> Self {
         debug_assert!(width > 0);
         debug_assert!(height > 0);
 
@@ -100,7 +101,7 @@ impl Board {
         let res = [width as usize, height as usize];
         let cells = Array2::from_shape_vec(res, cells).expect("Failed to construct array.");
 
-        Board { res, cells }
+        Self { res, cells }
     }
 
     /// Calculate the number of neighbours a given cell has.
@@ -138,7 +139,7 @@ impl Display for Board {
                 let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
                 write!(f, "{}", symbol)?;
             }
-            write!(f, "\n")?;
+            writeln!(f)?;
         }
 
         Ok(())
