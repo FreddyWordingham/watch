@@ -90,8 +90,8 @@ impl Board {
     }
 
     /// Toggle the status of a cell.
-    pub fn toggle_cell(&mut self, row: u32, column: u32) {
-        self.cells.toggle(self.get_index(row, column));
+    pub fn toggle_cell(&mut self, row: u32, col: u32) {
+        self.cells.toggle(self.get_index(row, col));
     }
 
     /// Kill all the cells.
@@ -125,24 +125,65 @@ impl Board {
         ((row * self.res[0]) + col) as usize
     }
 
+    // /// Calculate the number of neighbours a given cell has.
+    // #[inline]
+    // #[must_use]
+    // fn num_neighbours(&self, row: u32, col: u32) -> u8 {
+    //     let mut count = 0;
+    //     for delta_row in [self.res[1] - 1, 0, 1].iter().cloned() {
+    //         for delta_col in [self.res[0] - 1, 0, 1].iter().cloned() {
+    //             if delta_row == 0 && delta_col == 0 {
+    //                 continue;
+    //             }
+
+    //             // Periodic.
+    //             let r = (row + delta_row) % self.res[1];
+    //             let c = (col + delta_col) % self.res[0];
+
+    //             count += self.cells[self.get_index(r, c)] as u8;
+    //         }
+    //     }
+    //     count
+    // }
+
     /// Calculate the number of neighbours a given cell has.
     #[inline]
     #[must_use]
     fn num_neighbours(&self, row: u32, col: u32) -> u8 {
         let mut count = 0;
-        for delta_row in [self.res[1] - 1, 0, 1].iter().cloned() {
-            for delta_col in [self.res[0] - 1, 0, 1].iter().cloned() {
-                if delta_row == 0 && delta_col == 0 {
-                    continue;
-                }
 
-                // Periodic.
-                let r = (row + delta_row) % self.res[1];
-                let c = (col + delta_col) % self.res[0];
+        let north = if row == 0 { self.res[1] - 1 } else { row - 1 };
 
-                count += self.cells[self.get_index(r, c)] as u8;
-            }
-        }
+        let south = if row == self.res[1] - 1 { 0 } else { row + 1 };
+
+        let west = if col == 0 { self.res[0] - 1 } else { col - 1 };
+
+        let east = if col == self.res[0] - 1 { 0 } else { col + 1 };
+
+        let nw = self.get_index(north, west);
+        count += self.cells[nw] as u8;
+
+        let n = self.get_index(north, col);
+        count += self.cells[n] as u8;
+
+        let ne = self.get_index(north, east);
+        count += self.cells[ne] as u8;
+
+        let w = self.get_index(row, west);
+        count += self.cells[w] as u8;
+
+        let e = self.get_index(row, east);
+        count += self.cells[e] as u8;
+
+        let sw = self.get_index(south, west);
+        count += self.cells[sw] as u8;
+
+        let s = self.get_index(south, col);
+        count += self.cells[s] as u8;
+
+        let se = self.get_index(south, east);
+        count += self.cells[se] as u8;
+
         count
     }
 
