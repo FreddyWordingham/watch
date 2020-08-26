@@ -5,12 +5,12 @@ use js_sys;
 use std::fmt::{Display, Formatter, Result};
 use wasm_bindgen::prelude::*;
 
-/// A macro to provide `println!(..)`-style syntax for `console.log` logging.
-macro_rules! log {
-    ( $( $t:tt )* ) => {
-        web_sys::console::log_1(&format!( $( $t )* ).into());
-    }
-}
+// /// A macro to provide `println!(..)`-style syntax for `console.log` logging.
+// macro_rules! log {
+//     ( $( $t:tt )* ) => {
+//         web_sys::console::log_1(&format!( $( $t )* ).into());
+//     }
+// }
 
 /// Game board.
 #[wasm_bindgen]

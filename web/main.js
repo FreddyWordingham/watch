@@ -30,19 +30,52 @@ canvas.width = (CELL_SIZE + 1) * width + 1;
 /// Drawing context.
 const ctx = canvas.getContext('2d');
 
+/// Form.
+const time_button = document.getElementById("time_toggle_button");
+
+
+
+/// Check if time is paused.
+const is_paused = () => {
+    return frame_id === null;
+};
+
+/// Start time.
+const play = () => {
+    time_button.textContent = "stop";
+    render_loop();
+};
+
+/// Stop time.
+const pause = () => {
+    time_button.textContent = "start";
+    cancelAnimationFrame(frame_id);
+    frame_id = null;
+};
+
+/// Check for button click.
+time_button.addEventListener("click", event => {
+    if (is_paused()) {
+        play();
+    } else {
+        pause();
+    }
+});
+
+
+
 /// Rendering loop.
-const renderLoop = () => {
-    debugger;
+let frame_id = null;
+const render_loop = () => {
     board.tick();
 
-    drawGrid();
-    drawCells();
+    draw_cells();
 
-    requestAnimationFrame(renderLoop);
+    frame_id = requestAnimationFrame(render_loop);
 };
 
 /// Draw the grid array.
-const drawGrid = () => {
+const draw_grid = () => {
     ctx.beginPath();
     ctx.strokeStyle = GRID_COL;
 
@@ -59,7 +92,7 @@ const drawGrid = () => {
 };
 
 /// Draw the cell array.
-const drawCells = () => {
+const draw_cells = () => {
     const cellsPtr = board.cells();
     const cells = new Uint8Array(memory.buffer, cellsPtr, (width * height) / 8);
 
@@ -67,7 +100,7 @@ const drawCells = () => {
 
     for (let row = 0; row < height; ++row) {
         for (let col = 0; col < width; ++col) {
-            const idx = getIndex(row, col);
+            const idx = get_index(row, col);
 
             ctx.fillStyle = !bitIsSet(idx, cells) ?
                 DEAD_COL :
@@ -86,7 +119,7 @@ const drawCells = () => {
 };
 
 /// Get the one-dimensional index from the two-dimensional position.
-const getIndex = (row, column) => {
+const get_index = (row, column) => {
     return row * width + column;
 };
 
@@ -97,8 +130,8 @@ const bitIsSet = (n, arr) => {
     return (arr[byte] & mask) === mask;
 };
 
-console.log("Hello world!");
 
-drawGrid();
-drawCells();
-requestAnimationFrame(renderLoop);
+
+draw_grid();
+draw_cells();
+requestAnimationFrame(render_loop);
