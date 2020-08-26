@@ -17,7 +17,7 @@ const ALIVE_COL = "#000000";
 
 /// Main board.
 const board = Board.new(64, 64);
-board.randomise(0.279);
+board.randomise(0.367879441);
 /// Board width [cells].
 const width = board.width();
 /// Board height [cells].
@@ -32,6 +32,7 @@ const ctx = canvas.getContext('2d');
 
 /// Rendering loop.
 const renderLoop = () => {
+    debugger;
     board.tick();
 
     drawGrid();

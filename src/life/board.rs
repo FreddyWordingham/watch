@@ -35,7 +35,7 @@ impl Board {
 
     /// Iterate the board forward a single step.
     pub fn tick(&mut self) {
-        // log!("ticking!");
+        log!("ticking!");
 
         let mut next = self.cells.clone();
 
@@ -58,7 +58,6 @@ impl Board {
                 );
             }
         }
-
         self.cells = next;
     }
 
