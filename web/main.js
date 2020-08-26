@@ -59,7 +59,7 @@ const drawGrid = () => {
 /// Draw the cell array.
 const drawCells = () => {
     const cellsPtr = board.cells();
-    const cells = new Uint8Array(memory.buffer, cellsPtr, width * height);
+    const cells = new Uint8Array(memory.buffer, cellsPtr, (width * height) / 8);
 
     ctx.beginPath();
 
@@ -67,7 +67,7 @@ const drawCells = () => {
         for (let col = 0; col < width; ++col) {
             const idx = getIndex(row, col);
 
-            ctx.fillStyle = cells[idx] === Cell.Dead ?
+            ctx.fillStyle = !bitIsSet(idx, cells) ?
                 DEAD_COL :
                 ALIVE_COL;
 
@@ -86,6 +86,13 @@ const drawCells = () => {
 /// Get the one-dimensional index from the two-dimensional position.
 const getIndex = (row, column) => {
     return row * width + column;
+};
+
+/// Determine if the nth element of arr is set as true (alive).
+const bitIsSet = (n, arr) => {
+    const byte = Math.floor(n / 8);
+    const mask = 1 << (n % 8);
+    return (arr[byte] & mask) === mask;
 };
 
 console.log("Hello world!");

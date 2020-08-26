@@ -49,11 +49,12 @@ impl Board {
         self.cells = next;
     }
 
-    /// Render the board to a string.
-    #[must_use]
-    pub fn render(&self) -> String {
-        self.to_string()
-    }
+    // /// Render the board to a string.
+    // /// [Note] Can not optimise passing a string.
+    // #[must_use]
+    // pub fn render(&self) -> String {
+    //     self.to_string()
+    // }
 
     /// Retrieve the board width.
     #[must_use]
