@@ -20,6 +20,8 @@ pub struct Board {
     res: [u32; 2],
     /// Cell state array.
     cells: FixedBitSet,
+    /// Previous state.
+    prev: FixedBitSet,
 }
 
 //  JS methods.
@@ -35,7 +37,7 @@ impl Board {
 
     /// Iterate the board forward a single step.
     pub fn tick(&mut self) {
-        let mut next = self.cells.clone();
+        // for _ in 0..100 {
 
         for row in 0..self.res[1] {
             for col in 0..self.res[0] {
@@ -44,7 +46,7 @@ impl Board {
 
                 let live_neighbors = self.num_neighbours(row, col);
 
-                next.set(
+                self.prev.set(
                     index,
                     match (cell, live_neighbors) {
                         (true, x) if x < 2 => false,
@@ -56,7 +58,8 @@ impl Board {
                 );
             }
         }
-        self.cells = next;
+
+        std::mem::swap(&mut self.cells, &mut self.prev);
     }
 
     /// Retrieve the board width.
@@ -115,6 +118,7 @@ impl Board {
         Self {
             res: [width, height],
             cells: FixedBitSet::with_capacity(total_cells),
+            prev: FixedBitSet::with_capacity(total_cells),
         }
     }
 
