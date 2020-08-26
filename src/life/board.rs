@@ -7,6 +7,7 @@ use wasm_bindgen::prelude::*;
 
 /// Game board.
 #[wasm_bindgen]
+#[derive(Debug, PartialEq)]
 pub struct Board {
     /// Board size.
     res: [u32; 2],
@@ -124,6 +125,14 @@ impl Board {
             }
         }
         count
+    }
+
+    /// Set a list of cells status' to alive.
+    #[inline]
+    pub fn make_alive(&mut self, cells: &[(u32, u32)]) {
+        for (row, col) in cells.iter().cloned() {
+            self.cells.set(self.get_index(row, col), true);
+        }
     }
 }
 
