@@ -9,6 +9,7 @@ pub enum Cell {
 }
 
 impl Cell {
+    /// Toggle the status of the cell.
     #[inline]
     pub fn toggle(&mut self) {
         *self = match *self {
