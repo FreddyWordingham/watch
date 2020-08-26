@@ -38,7 +38,6 @@ impl Board {
     /// Iterate the board forward a single step.
     pub fn tick(&mut self) {
         // for _ in 0..100 {
-
         for row in 0..self.res[1] {
             for col in 0..self.res[0] {
                 let index = self.get_index(row, col);
@@ -60,6 +59,7 @@ impl Board {
         }
 
         std::mem::swap(&mut self.cells, &mut self.prev);
+        // }
     }
 
     /// Retrieve the board width.
