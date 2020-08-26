@@ -88,6 +88,16 @@ impl Board {
             self.cells.set(i, status);
         }
     }
+
+    /// Toggle the status of a cell.
+    pub fn toggle_cell(&mut self, row: u32, column: u32) {
+        self.cells.toggle(self.get_index(row, column));
+    }
+
+    /// Kill all the cells.
+    pub fn nuke(&mut self) {
+        self.cells.set_range(0..self.cells.len(), false);
+    }
 }
 
 impl Board {

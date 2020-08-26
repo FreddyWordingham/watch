@@ -13,8 +13,8 @@ impl Cell {
     #[inline]
     pub fn toggle(&mut self) {
         *self = match *self {
-            Cell::Dead => Cell::Alive,
-            Cell::Alive => Cell::Dead,
+            Self::Dead => Self::Alive,
+            Self::Alive => Self::Dead,
         };
     }
 }

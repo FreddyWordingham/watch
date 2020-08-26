@@ -15,8 +15,13 @@ const DEAD_COL = "#FFFFFF";
 /// Living cell colour.
 const ALIVE_COL = "#000000";
 
+/// Default board width.
+const DEFAULT_WIDTH = 64;
+/// Default board height.
+const DEFAULT_HEIGHT = 64;
+
 /// Main board.
-const board = Board.new(64, 64);
+const board = Board.new(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 board.randomise(0.367879441);
 /// Board width [cells].
 const width = board.width();
@@ -31,6 +36,7 @@ canvas.width = (CELL_SIZE + 1) * width + 1;
 const ctx = canvas.getContext('2d');
 
 /// Form.
+const wipe_button = document.getElementById("wipe_button");
 const time_button = document.getElementById("time_toggle_button");
 
 
@@ -60,6 +66,44 @@ time_button.addEventListener("click", event => {
     } else {
         pause();
     }
+});
+
+
+/// Check for button click.
+wipe_button.addEventListener("click", event => {
+    board.nuke();
+});
+
+/// Check for keypress.
+document.body.onkeyup = function (e) {
+    if (e.keyCode == 32) { // Spacebar.
+        if (is_paused()) {
+            play();
+        } else {
+            pause();
+        }
+    }
+}
+
+
+/// Check for canvas clicking.
+canvas.addEventListener("click", event => {
+    console.log("Click!");
+
+    const bound = canvas.getBoundingClientRect();
+
+    const scale_x = canvas.width / bound.width;
+    const scale_y = canvas.height / bound.height;
+
+    const canvas_left = (event.clientX - bound.left) * scale_x;
+    const canvas_top = (event.clientY - bound.top) * scale_y;
+
+    const row = Math.min(Math.floor(canvas_top / (CELL_SIZE + 1)), height - 1);
+    const col = Math.min(Math.floor(canvas_left / (CELL_SIZE + 1)), width - 1);
+
+    board.toggle_cell(row, col);
+
+    draw_cells();
 });
 
 
