@@ -1,6 +1,7 @@
 //! Universal state.
 
 use fixedbitset::FixedBitSet;
+use js_sys;
 use std::fmt::{Display, Formatter, Result};
 use wasm_bindgen::prelude::*;
 
@@ -87,7 +88,8 @@ impl Board {
 
         let mut cells = FixedBitSet::with_capacity(total_cells);
         for i in 0..total_cells {
-            cells.set(i, i % 2 == 0 || i % 7 == 0);
+            let status = js_sys::Math::random() < 0.5;
+            cells.set(i, status);
         }
 
         Self {
