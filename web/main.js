@@ -7,7 +7,7 @@ import {
 } from "watch/watch_bg";
 
 /// Drawn cell size.
-const CELL_SIZE = 5; // [px]
+const CELL_SIZE = 10; // [px]
 /// Grid colour.
 const GRID_COL = "#CCCCCC";
 /// Dead cell colour.

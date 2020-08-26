@@ -1,7 +1,6 @@
 //! Universal state.
 
-use crate::cell::Cell;
-use ndarray::Array2;
+use fixedbitset::FixedBitSet;
 use std::fmt::{Display, Formatter, Result};
 use wasm_bindgen::prelude::*;
 
@@ -9,9 +8,9 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub struct Board {
     /// Board size.
-    res: [usize; 2],
+    res: [u32; 2],
     /// Cell state array.
-    cells: Array2<Cell>,
+    cells: FixedBitSet,
 }
 
 //  JS methods.
@@ -29,19 +28,21 @@ impl Board {
 
         for row in 0..self.res[1] {
             for col in 0..self.res[0] {
-                let index = [row as usize, col as usize];
+                let index = self.get_index(row, col);
                 let cell = self.cells[index];
-                let live_neighbors = self.num_neighbours(index);
 
-                let next_cell = match (cell, live_neighbors) {
-                    (Cell::Alive, x) if x < 2 => Cell::Dead,
-                    (Cell::Alive, 2) | (Cell::Alive, 3) => Cell::Alive,
-                    (Cell::Alive, x) if x > 3 => Cell::Dead,
-                    (Cell::Dead, 3) => Cell::Alive,
-                    (otherwise, _) => otherwise,
-                };
+                let live_neighbors = self.num_neighbours(row, col);
 
-                next[index] = next_cell;
+                next.set(
+                    index,
+                    match (cell, live_neighbors) {
+                        (true, x) if x < 2 => false,
+                        (true, 2) | (true, 3) => true,
+                        (true, x) if x > 3 => false,
+                        (false, 3) => true,
+                        (otherwise, _) => otherwise,
+                    },
+                );
             }
         }
 
@@ -68,8 +69,8 @@ impl Board {
 
     /// Reference the array of cells as a pointer.
     #[must_use]
-    pub fn cells(&self) -> *const Cell {
-        self.cells.as_ptr()
+    pub fn cells(&self) -> *const u32 {
+        self.cells.as_slice().as_ptr()
     }
 }
 
@@ -81,27 +82,30 @@ impl Board {
         debug_assert!(width > 0);
         debug_assert!(height > 0);
 
-        let total_cells = width * height;
-        let cells: Vec<_> = (0..total_cells)
-            .map(|i| {
-                if i % 2 == 0 || i % 7 == 0 {
-                    Cell::Alive
-                } else {
-                    Cell::Dead
-                }
-            })
-            .collect();
+        let total_cells = (width * height) as usize;
 
-        let res = [width as usize, height as usize];
-        let cells = Array2::from_shape_vec(res, cells).expect("Failed to construct array.");
+        let mut cells = FixedBitSet::with_capacity(total_cells);
+        for i in 0..total_cells {
+            cells.set(i, i % 2 == 0 || i % 7 == 0);
+        }
 
-        Self { res, cells }
+        Self {
+            res: [width, height],
+            cells,
+        }
+    }
+
+    /// Get the linear index corresponding to the two-dimensional spatial position.
+    #[inline]
+    #[must_use]
+    const fn get_index(&self, row: u32, col: u32) -> usize {
+        ((row * self.res[0]) + col) as usize
     }
 
     /// Calculate the number of neighbours a given cell has.
     #[inline]
     #[must_use]
-    fn num_neighbours(&self, index: [usize; 2]) -> u8 {
+    fn num_neighbours(&self, row: u32, col: u32) -> u8 {
         let mut count = 0;
         for delta_row in [self.res[1] - 1, 0, 1].iter().cloned() {
             for delta_col in [self.res[0] - 1, 0, 1].iter().cloned() {
@@ -110,10 +114,10 @@ impl Board {
                 }
 
                 // Periodic.
-                let row = (index[0] + delta_row) % self.res[1];
-                let col = (index[1] + delta_col) % self.res[0];
+                let r = (row + delta_row) % self.res[1];
+                let c = (col + delta_col) % self.res[0];
 
-                count += self.cells[[row, col]] as u8;
+                count += self.cells[self.get_index(r, c)] as u8;
             }
         }
         count
@@ -121,6 +125,8 @@ impl Board {
 }
 
 impl Default for Board {
+    #[inline]
+    #[must_use]
     fn default() -> Self {
         Self::new(64, 64)
     }
@@ -129,14 +135,13 @@ impl Default for Board {
 impl Display for Board {
     #[inline]
     fn fmt(&self, f: &mut Formatter) -> Result {
-        for line in self
-            .cells
-            .as_slice()
-            .expect("Failed to create slice from cell array.")
-            .chunks(self.res[0] as usize)
-        {
-            for &cell in line {
-                let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
+        for row in 0..self.res[1] {
+            for col in 0..self.res[0] {
+                let symbol = if self.cells[self.get_index(row, col)] {
+                    '◼'
+                } else {
+                    '◻'
+                };
                 write!(f, "{}", symbol)?;
             }
             writeln!(f)?;
