@@ -17,6 +17,8 @@ pub struct Board {
 
 //  JS methods.
 #[wasm_bindgen]
+#[allow(clippy::missing_const_for_fn)]
+#[allow(clippy::missing_inline_in_public_items)]
 impl Board {
     /// Construct a new instance.
     #[must_use]
@@ -51,13 +53,6 @@ impl Board {
         self.cells = next;
     }
 
-    // /// Render the board to a string.
-    // /// [Note] Can not optimise passing a string.
-    // #[must_use]
-    // pub fn render(&self) -> String {
-    //     self.to_string()
-    // }
-
     /// Retrieve the board width.
     #[must_use]
     pub fn width(&self) -> u32 {
@@ -75,6 +70,18 @@ impl Board {
     pub fn cells(&self) -> *const u32 {
         self.cells.as_slice().as_ptr()
     }
+
+    /// Randomise the status of a cell.
+    pub fn randomise(&mut self, x: f64) {
+        debug_assert!(x >= 0.0);
+        debug_assert!(x <= 1.0);
+
+        let total_cells = (self.res[0] * self.res[1]) as usize;
+        for i in 0..total_cells {
+            let status = js_sys::Math::random() < x;
+            self.cells.set(i, status);
+        }
+    }
 }
 
 impl Board {
@@ -87,15 +94,9 @@ impl Board {
 
         let total_cells = (width * height) as usize;
 
-        let mut cells = FixedBitSet::with_capacity(total_cells);
-        for i in 0..total_cells {
-            let status = js_sys::Math::random() < 0.5;
-            cells.set(i, status);
-        }
-
         Self {
             res: [width, height],
-            cells,
+            cells: FixedBitSet::with_capacity(total_cells),
         }
     }
 
