@@ -5,6 +5,13 @@ use js_sys;
 use std::fmt::{Display, Formatter, Result};
 use wasm_bindgen::prelude::*;
 
+/// A macro to provide `println!(..)`-style syntax for `console.log` logging.
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
+    }
+}
+
 /// Game board.
 #[wasm_bindgen]
 #[derive(Debug, PartialEq)]
@@ -28,6 +35,8 @@ impl Board {
 
     /// Iterate the board forward a single step.
     pub fn tick(&mut self) {
+        // log!("ticking!");
+
         let mut next = self.cells.clone();
 
         for row in 0..self.res[1] {

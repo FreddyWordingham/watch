@@ -29,4 +29,4 @@ wasm-opt = true
 
 [dependencies.web-sys]
 version = "0.3"
-features = [  "console"]
+features = ["console"]

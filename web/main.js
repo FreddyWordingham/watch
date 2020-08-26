@@ -17,6 +17,7 @@ const ALIVE_COL = "#000000";
 
 /// Main board.
 const board = Board.new(64, 64);
+board.randomise(0.279);
 /// Board width [cells].
 const width = board.width();
 /// Board height [cells].
