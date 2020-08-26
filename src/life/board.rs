@@ -89,6 +89,8 @@ impl Board {
     #[inline]
     #[must_use]
     fn new_sized(width: u32, height: u32) -> Self {
+        crate::set_panic_hook(); // TODO: Better place for this?
+
         debug_assert!(width > 0);
         debug_assert!(height > 0);
 
