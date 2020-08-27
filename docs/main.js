@@ -1,10 +1,10 @@
-// import {
-//     Board,
-//     Cell,
-// } from "watch";
-// import {
-//     memory
-// } from "watch/watch_bg";
+import {
+    Board,
+    Cell,
+} from "watch";
+import {
+    memory
+} from "watch/watch_bg";
 
 
 
