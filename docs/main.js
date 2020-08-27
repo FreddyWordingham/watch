@@ -1,10 +1,10 @@
 import {
     Board,
     Cell,
-} from "./";
+} from "./pkg/";
 import {
     memory
-} from "./watch_bg";
+} from "./pkg/watch_bg";
 
 
 
