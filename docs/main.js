@@ -1,10 +1,10 @@
 import {
     Board,
     Cell,
-} from "./../pkg/watch.js";
+} from "./";
 import {
     memory
-} from "./../pkg/watch_bg.js";
+} from "./watch_bg.js";
 
 
 
