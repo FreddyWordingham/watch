@@ -1,10 +1,10 @@
 import {
     Board,
     Cell,
-} from "watch";
+} from "./";
 import {
     memory
-} from "watch/watch_bg";
+} from "./watch_bg";
 
 
 
