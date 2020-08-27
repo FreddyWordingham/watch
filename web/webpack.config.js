@@ -12,3 +12,9 @@ module.exports = {
         new CopyWebpackPlugin(['index.html'])
     ],
 };
+
+// const productionConfig = merge([{
+//     output: {
+//         publicPath: "/watch/",
+//     },
+// }]);
