@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>A Game-of-Life'</title>
+        <title>A Game-of-Life</title>
         <style>
             body {
                 position: absolute;
@@ -24,16 +24,6 @@
         <input id="fraction_slider" type="range" min="0" max="1" step="0.01" default=0.27>
         <canvas id="main_canvas"></canvas>
         <button id="time_toggle_button">stop</button>
-        <script>
-            var Module = {
-                wasmBinaryFile: "watch_bg.wasm",
-                onRuntimeInitialized: main,
-            }
-
-            function main() {
-                console.log("Hello there!");
-            }
-        </script>
         <script src="./bootstrap.js"></script>
     </body>
 
