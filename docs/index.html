@@ -76,7 +76,15 @@
             }
 
             function to_music() {
-                window.location.href = "https://www.youtube.com/watch?v=1m4BUbHEJfA";
+                window.location.href = get_random_song();
+            }
+
+            function get_random_song() {
+                var songs = [
+                    "url('https://www.youtube.com/watch?v=1m4BUbHEJfA')",
+                ];
+
+                return songs[Math.floor(Math.random() * songs.length)];
             }
         </script>
     </body>
