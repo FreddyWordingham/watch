@@ -87,13 +87,15 @@
                 }
 
                 function clear() {
-                    let i = pixels.pop();
-                    let x = i % (canvas.width / power);
-                    let y = i / (canvas.width / power);
+                    for (var n = 0; n < 10; ++n) {
+                        let i = pixels.pop();
+                        let x = i % (canvas.width / power);
+                        let y = i / (canvas.width / power);
 
-                    // console.log(x, y);
+                        // console.log(x, y);
 
-                    ctx.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                        ctx.clearRect(x * power, y * power, power + 0.5, power + 0.5);
+                    }
                 }
 
                 function initialize() {
